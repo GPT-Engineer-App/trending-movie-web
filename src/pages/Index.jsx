@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -12,6 +13,7 @@ const Index = () => {
   const [selectedGenre, setSelectedGenre] = useState("");
   const [sortOption, setSortOption] = useState("title");
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchTrendingMovies(page)
@@ -48,6 +50,10 @@ const Index = () => {
 
   const loadMoreMovies = () => {
     setPage((prevPage) => prevPage + 1);
+  };
+
+  const handleViewMore = (movieId) => {
+    navigate(`/movie/${movieId}`);
   };
 
   return (
@@ -92,6 +98,7 @@ const Index = () => {
                     <span className="mr-2">Rating:</span>
                     <Rating movieId={movie.id} initialRating={movie.vote_average} />
                   </div>
+                  <Button onClick={() => handleViewMore(movie.id)} className="mt-2">View More</Button>
                 </CardContent>
               </Card>
             ))}
