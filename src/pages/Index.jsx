@@ -6,7 +6,7 @@ const Index = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch("https://api.themoviedb.org/3/trending/movie/week?api_key=YOUR_API_KEY")
+    fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${import.meta.env.VITE_API_KEY}`)
       .then((response) => response.json())
       .then((data) => setMovies(data.results))
       .catch((error) => console.error("Error fetching trending movies:", error));
