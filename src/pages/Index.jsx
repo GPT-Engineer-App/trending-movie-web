@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { fetchTrendingMovies } from "@/api/movies";
 
 const Index = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${import.meta.env.VITE_API_KEY}`)
-      .then((response) => response.json())
-      .then((data) => setMovies(data.results))
+    fetchTrendingMovies()
+      .then((data) => setMovies(data))
       .catch((error) => console.error("Error fetching trending movies:", error));
   }, []);
 
