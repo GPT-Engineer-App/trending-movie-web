@@ -1,4 +1,3 @@
-const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 const options = {
@@ -11,7 +10,7 @@ const options = {
 
 export const fetchTrendingMovies = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`, options);
+    const response = await fetch(`${BASE_URL}/trending/movie/week`, options);
     if (!response.ok) {
       throw new Error('Failed to fetch trending movies');
     }
@@ -25,7 +24,7 @@ export const fetchTrendingMovies = async () => {
 
 export const fetchMovieDetails = async (movieId) => {
   try {
-    const response = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`, options);
+    const response = await fetch(`${BASE_URL}/movie/${movieId}`, options);
     if (!response.ok) {
       throw new Error('Failed to fetch movie details');
     }
@@ -39,7 +38,7 @@ export const fetchMovieDetails = async (movieId) => {
 
 export const fetchConfiguration = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/configuration?api_key=${API_KEY}`, options);
+    const response = await fetch(`${BASE_URL}/configuration`, options);
     if (!response.ok) {
       throw new Error('Failed to fetch configuration');
     }
