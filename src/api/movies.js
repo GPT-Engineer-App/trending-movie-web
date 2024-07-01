@@ -12,7 +12,7 @@ export const fetchTrendingMovies = async (page = 1) => {
   try {
     const response = await fetch(`${BASE_URL}/trending/movie/week?page=${page}`, options);
     if (!response.ok) {
-      throw new Error(`Failed to fetch trending movies. Status: ${response.status} ${response.statusText}. Please check your API key or network connection.`);
+      throw new Error('Failed to fetch trending movies');
     }
     const data = await response.json();
     return data.results;
@@ -26,7 +26,7 @@ export const fetchMovieDetails = async (movieId) => {
   try {
     const response = await fetch(`${BASE_URL}/movie/${movieId}`, options);
     if (!response.ok) {
-      throw new Error(`Failed to fetch movie details. Status: ${response.status} ${response.statusText}. Please check your API key or network connection.`);
+      throw new Error('Failed to fetch movie details');
     }
     const data = await response.json();
     return data;
@@ -40,7 +40,7 @@ export const fetchConfiguration = async () => {
   try {
     const response = await fetch(`${BASE_URL}/configuration`, options);
     if (!response.ok) {
-      throw new Error(`Failed to fetch configuration. Status: ${response.status} ${response.statusText}. Please check your API key or network connection.`);
+      throw new Error('Failed to fetch configuration');
     }
     const data = await response.json();
     return data;

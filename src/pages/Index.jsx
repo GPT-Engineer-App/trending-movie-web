@@ -6,8 +6,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 import { fetchTrendingMovies } from "@/api/movies";
 import { fetchGenres } from "@/api/genres"; // Assuming there's an API to fetch genres
-import { motion } from "framer-motion";
-import Rating from "@/components/Rating";
 
 const Index = () => {
   const [movies, setMovies] = useState([]);
@@ -89,27 +87,20 @@ const Index = () => {
         <ScrollArea className="h-[500px]">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredMovies.map((movie) => (
-              <motion.div
-                key={movie.id}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Card className="shadow-lg">
-                  <CardHeader>
-                    <CardTitle>{movie.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="w-full h-auto mb-2 rounded-md" />
-                    <p>{movie.overview}</p>
-                    <div className="flex items-center mt-2">
-                      <span className="mr-2">Rating:</span>
-                      <Rating initialRating={movie.vote_average} />
-                    </div>
-                    <Button onClick={() => handleViewMore(movie.id)} className="mt-2">View More</Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
+              <Card key={movie.id} className="shadow-lg">
+                <CardHeader>
+                  <CardTitle>{movie.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="w-full h-auto mb-2 rounded-md" />
+                  <p>{movie.overview}</p>
+                  <div className="flex items-center mt-2">
+                    <span className="mr-2">Rating:</span>
+                    <Rating movieId={movie.id} initialRating={movie.vote_average} />
+                  </div>
+                  <Button onClick={() => handleViewMore(movie.id)} className="mt-2">View More</Button>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </ScrollArea>
@@ -117,6 +108,47 @@ const Index = () => {
           <Button onClick={loadMoreMovies}>Load More</Button>
         </div>
       </div>
+    </div>
+  );
+};
+
+const Rating = ({ movieId, initialRating }) => {
+  const [rating, setRating] = useState(initialRating);
+  const [isSubmitVisible, setIsSubmitVisible] = useState(false);
+
+  const handleRatingChange = (newRating) => {
+    setRating(newRating);
+    setIsSubmitVisible(true);
+    // Here you would also send the new rating to your backend or API
+  };
+
+  const handleSubmit = () => {
+    console.log(`Submitting rating ${rating} for movie ${movieId}`);
+    // Add your API call or backend submission logic here
+    setIsSubmitVisible(false);
+  };
+
+  return (
+    <div className="flex items-center">
+      <div className="flex">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <span
+            key={star}
+            className={`cursor-pointer ${star <= rating ? "text-yellow-500" : "text-gray-400"}`}
+            onClick={() => handleRatingChange(star)}
+          >
+            ★
+          </span>
+        ))}
+      </div>
+      {isSubmitVisible && (
+        <button
+          className="ml-2 px-2 py-1 bg-blue-500 text-white rounded"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
+      )}
     </div>
   );
 };
