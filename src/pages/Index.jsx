@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 import { fetchTrendingMovies } from "@/api/movies";
 import { fetchGenres } from "@/api/genres"; // Assuming there's an API to fetch genres
+import { motion } from "framer-motion";
 
 const Index = () => {
   const [movies, setMovies] = useState([]);
@@ -87,20 +88,27 @@ const Index = () => {
         <ScrollArea className="h-[500px]">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredMovies.map((movie) => (
-              <Card key={movie.id} className="shadow-lg">
-                <CardHeader>
-                  <CardTitle>{movie.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="w-full h-auto mb-2 rounded-md" />
-                  <p>{movie.overview}</p>
-                  <div className="flex items-center mt-2">
-                    <span className="mr-2">Rating:</span>
-                    <Rating movieId={movie.id} initialRating={movie.vote_average} />
-                  </div>
-                  <Button onClick={() => handleViewMore(movie.id)} className="mt-2">View More</Button>
-                </CardContent>
-              </Card>
+              <motion.div
+                key={movie.id}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Card className="shadow-lg">
+                  <CardHeader>
+                    <CardTitle>{movie.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="w-full h-auto mb-2 rounded-md" />
+                    <p>{movie.overview}</p>
+                    <div className="flex items-center mt-2">
+                      <span className="mr-2">Rating:</span>
+                      <Rating movieId={movie.id} initialRating={movie.vote_average} />
+                    </div>
+                    <Button onClick={() => handleViewMore(movie.id)} className="mt-2">View More</Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </ScrollArea>
