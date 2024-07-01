@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const Rating = ({ movieId, initialRating }) => {
   const [rating, setRating] = useState(initialRating);
@@ -16,18 +16,15 @@ const Rating = ({ movieId, initialRating }) => {
     setIsSubmitVisible(false);
   };
 
-  useEffect(() => {
-    // Your existing return statement here
-  }, []);
-
   return (
-    <div className="flex items-center">
-      <div className="flex">
+    <div className="flex items-center" suppressHydrationWarning>
+      <div className="flex" suppressHydrationWarning>
         {[1, 2, 3, 4, 5].map((star) => (
           <span
             key={star}
             className={`cursor-pointer ${star <= rating ? "text-yellow-500" : "text-gray-400"}`}
             onClick={() => handleRatingChange(star)}
+            suppressHydrationWarning
           >
             ★
           </span>
@@ -37,6 +34,7 @@ const Rating = ({ movieId, initialRating }) => {
         <button
           className="ml-2 px-2 py-1 bg-blue-500 text-white rounded"
           onClick={handleSubmit}
+          suppressHydrationWarning
         >
           Submit
         </button>

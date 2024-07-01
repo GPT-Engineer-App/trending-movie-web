@@ -58,71 +58,67 @@ const Index = () => {
     navigate(`/movie/${movieId}`);
   };
 
-  useEffect(() => {
-    return (
-      <div className="h-screen w-screen flex items-center justify-center">
-        <div className="container mx-auto p-4">
-          <h1 className="text-3xl text-center mb-4">Trending Movies</h1>
-          <div className="flex justify-between mb-4">
-            <Select onValueChange={handleSortChange}>
-              <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="title">Title</SelectItem>
-                <SelectItem value="rating">Rating</SelectItem>
-                <SelectItem value="popularity">Popularity</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select onValueChange={handleGenreChange}>
-              <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Filter by Genre" />
-              </SelectTrigger>
-              <SelectContent>
-                {genres.map((genre) => (
-                  <SelectItem key={genre.id} value={genre.id.toString()}>
-                    {genre.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <ScrollArea className="h-[500px]">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredMovies.map((movie) => (
-                <motion.div
-                  key={movie.id}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Card className="shadow-lg">
-                    <CardHeader>
-                      <CardTitle>{movie.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="w-full h-auto mb-2 rounded-md" />
-                      <p>{movie.overview}</p>
-                      <div className="flex items-center mt-2">
-                        <span className="mr-2">Rating:</span>
-                        <Rating initialRating={movie.vote_average} />
-                      </div>
-                      <Button onClick={() => handleViewMore(movie.id)} className="mt-2">View More</Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+  return (
+    <div className="h-screen w-screen flex items-center justify-center" suppressHydrationWarning>
+      <div className="container mx-auto p-4">
+        <h1 className="text-3xl text-center mb-4">Trending Movies</h1>
+        <div className="flex justify-between mb-4">
+          <Select onValueChange={handleSortChange}>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="title">Title</SelectItem>
+              <SelectItem value="rating">Rating</SelectItem>
+              <SelectItem value="popularity">Popularity</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select onValueChange={handleGenreChange}>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="Filter by Genre" />
+            </SelectTrigger>
+            <SelectContent>
+              {genres.map((genre) => (
+                <SelectItem key={genre.id} value={genre.id.toString()}>
+                  {genre.name}
+                </SelectItem>
               ))}
-            </div>
-          </ScrollArea>
-          <div className="flex justify-center mt-4">
-            <Button onClick={loadMoreMovies}>Load More</Button>
+            </SelectContent>
+          </Select>
+        </div>
+        <ScrollArea className="h-[500px]" suppressHydrationWarning>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredMovies.map((movie) => (
+              <motion.div
+                key={movie.id}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Card className="shadow-lg">
+                  <CardHeader>
+                    <CardTitle>{movie.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="w-full h-auto mb-2 rounded-md" />
+                    <p>{movie.overview}</p>
+                    <div className="flex items-center mt-2">
+                      <span className="mr-2">Rating:</span>
+                      <Rating initialRating={movie.vote_average} />
+                    </div>
+                    <Button onClick={() => handleViewMore(movie.id)} className="mt-2">View More</Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
+        </ScrollArea>
+        <div className="flex justify-center mt-4">
+          <Button onClick={loadMoreMovies}>Load More</Button>
         </div>
       </div>
-    );
-  }, []);
-
-  return null;
+    </div>
+  );
 };
 
 export default Index;
