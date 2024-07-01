@@ -26,7 +26,7 @@ const MovieDetails = () => {
             <CardTitle>{movie.title}</CardTitle>
           </CardHeader>
           <CardContent>
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="w-full h-auto mb-2 rounded-md" />
+            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="w-1/2 h-auto mb-2 rounded-md" />
             <p>{movie.overview}</p>
             <div className="flex items-center mt-2">
               <span className="mr-2">Rating:</span>
