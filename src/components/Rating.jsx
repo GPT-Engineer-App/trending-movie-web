@@ -17,15 +17,13 @@ const Rating = ({ movieId, initialRating }) => {
   };
 
   return (
-    <div className="flex items-center" suppressHydrationWarning>
-      <div className="flex" suppressHydrationWarning>
+    <div className="flex items-center">
+      <div className="flex">
         {[1, 2, 3, 4, 5].map((star) => (
           <span
             key={star}
             className={`cursor-pointer ${star <= rating ? "text-yellow-500" : "text-gray-400"}`}
-            onClick={() => handleRatingChange(star)}
-            suppressHydrationWarning
-          >
+            onClick={() => handleRatingChange(star)}>
             ★
           </span>
         ))}
@@ -33,9 +31,7 @@ const Rating = ({ movieId, initialRating }) => {
       {isSubmitVisible && (
         <button
           className="ml-2 px-2 py-1 bg-blue-500 text-white rounded"
-          onClick={handleSubmit}
-          suppressHydrationWarning
-        >
+          onClick={handleSubmit}>
           Submit
         </button>
       )}
