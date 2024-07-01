@@ -61,7 +61,7 @@ const Index = () => {
   return (
     <div className="h-screen w-screen flex items-center justify-center">
       <div className="container mx-auto p-4">
-        <h1 className="text-3xl text-center mb-4">Trending Movies</h1>
+        <h1 className="text-3xl text-center mb-4">Popular Movies</h1>
         <div className="flex justify-between mb-4">
           <Select onValueChange={handleSortChange}>
             <SelectTrigger className="w-[200px]">
