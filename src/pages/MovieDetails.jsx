@@ -20,7 +20,7 @@ const MovieDetails = () => {
   }
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
+    <div key={movieId} className="h-screen w-screen flex items-center justify-center">
       <div className="container mx-auto p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const About = () => {
   return (
-    <motion.div
+    <motion.div key="about"
       className="h-screen w-screen flex items-center justify-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { fetchTrendingMovies } from "@/api/movies";
 import { fetchGenres } from "@/api/genres"; // Assuming there's an API to fetch genres
 import { motion } from "framer-motion";
+
+const Rating = lazy(() => import('./Rating'));
 
 const Index = () => {
   const [movies, setMovies] = useState([]);
@@ -58,7 +60,7 @@ const Index = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
+    <div key={page} className="h-screen w-screen flex items-center justify-center">
       <div className="container mx-auto p-4">
         <h1 className="text-3xl text-center mb-4">Trending Movies</h1>
         <div className="flex justify-between mb-4">
@@ -103,7 +105,9 @@ const Index = () => {
                     <p>{movie.overview}</p>
                     <div className="flex items-center mt-2">
                       <span className="mr-2">Rating:</span>
-                      <Rating movieId={movie.id} initialRating={movie.vote_average} />
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <Rating movieId={movie.id} initialRating={movie.vote_average} />
+                      </Suspense>
                     </div>
                     <Button onClick={() => handleViewMore(movie.id)} className="mt-2">View More</Button>
                   </CardContent>
@@ -116,47 +120,6 @@ const Index = () => {
           <Button onClick={loadMoreMovies}>Load More</Button>
         </div>
       </div>
-    </div>
-  );
-};
-
-const Rating = ({ movieId, initialRating }) => {
-  const [rating, setRating] = useState(initialRating);
-  const [isSubmitVisible, setIsSubmitVisible] = useState(false);
-
-  const handleRatingChange = (newRating) => {
-    setRating(newRating);
-    setIsSubmitVisible(true);
-    // Here you would also send the new rating to your backend or API
-  };
-
-  const handleSubmit = () => {
-    console.log(`Submitting rating ${rating} for movie ${movieId}`);
-    // Add your API call or backend submission logic here
-    setIsSubmitVisible(false);
-  };
-
-  return (
-    <div className="flex items-center">
-      <div className="flex">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <span
-            key={star}
-            className={`cursor-pointer ${star <= rating ? "text-yellow-500" : "text-gray-400"}`}
-            onClick={() => handleRatingChange(star)}
-          >
-            ★
-          </span>
-        ))}
-      </div>
-      {isSubmitVisible && (
-        <button
-          className="ml-2 px-2 py-1 bg-blue-500 text-white rounded"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
-      )}
     </div>
   );
 };
