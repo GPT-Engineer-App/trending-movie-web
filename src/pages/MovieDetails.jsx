@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchMovieDetails } from "@/api/movies";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchMovieDetails(movieId)
@@ -39,6 +40,12 @@ const MovieDetails = () => {
               <span className="mr-2">Genres:</span>
               <span>{movie.genres.map((genre) => genre.name).join(", ")}</span>
             </div>
+            <button
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+              onClick={() => navigate(-1)}
+            >
+              Back
+            </button>
           </CardContent>
         </Card>
       </div>

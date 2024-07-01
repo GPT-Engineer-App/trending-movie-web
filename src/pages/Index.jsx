@@ -16,7 +16,7 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchTrendingMovies(page)
+    fetchTrendingMovies(page, 20) // Increase the number of movies fetched per request
       .then((data) => setMovies((prevMovies) => [...prevMovies, ...data]))
       .catch((error) => console.error("Error fetching trending movies:", error));
 
