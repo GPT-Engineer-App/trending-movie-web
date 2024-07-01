@@ -1,7 +1,12 @@
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Navbar = () => {
+  useEffect(() => {
+    // Your existing return statement here
+  }, []);
+
   return (
     <motion.nav
       className="bg-gray-800 p-4"

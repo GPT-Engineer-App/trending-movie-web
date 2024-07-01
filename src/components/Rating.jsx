@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Rating = ({ movieId, initialRating }) => {
   const [rating, setRating] = useState(initialRating);
@@ -15,6 +15,10 @@ const Rating = ({ movieId, initialRating }) => {
     // Add your API call or backend submission logic here
     setIsSubmitVisible(false);
   };
+
+  useEffect(() => {
+    // Your existing return statement here
+  }, []);
 
   return (
     <div className="flex items-center">

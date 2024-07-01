@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const About = () => {
+  useEffect(() => {
+    // Your existing return statement here
+  }, []);
+
   return (
     <motion.div
       className="h-screen w-screen flex items-center justify-center"
