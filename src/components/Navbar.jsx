@@ -9,7 +9,6 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 50 }}
-      suppressHydrationWarning
     >
       <div className="container mx-auto flex justify-between">
         <div className="text-white text-lg">

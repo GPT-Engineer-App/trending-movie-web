@@ -16,7 +16,7 @@ const MovieDetails = () => {
   }, [movieId]);
 
   if (!movie) {
-    return <div suppressHydrationWarning>Loading...</div>;
+    return <div>Loading...</div>;
   }
 
   return (
@@ -29,25 +29,24 @@ const MovieDetails = () => {
         >
           <Card className="shadow-lg">
             <CardHeader>
-              <CardTitle suppressHydrationWarning>{movie.title}</CardTitle>
+              <CardTitle>{movie.title}</CardTitle>
             </CardHeader>
             <CardContent>
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title}
                 className="w-1/2 h-auto mb-2 rounded-md"
-                suppressHydrationWarning
               />
-              <p suppressHydrationWarning>{movie.overview}</p>
-              <div className="flex items-center mt-2" suppressHydrationWarning>
+              <p>{movie.overview}</p>
+              <div className="flex items-center mt-2">
                 <span className="mr-2">Rating:</span>
                 <span>{movie.vote_average}</span>
               </div>
-              <div className="flex items-center mt-2" suppressHydrationWarning>
+              <div className="flex items-center mt-2">
                 <span className="mr-2">Release Date:</span>
                 <span>{movie.release_date}</span>
               </div>
-              <div className="flex items-center mt-2" suppressHydrationWarning>
+              <div className="flex items-center mt-2">
                 <span className="mr-2">Genres:</span>
                 <span>{movie.genres.map((genre) => genre.name).join(", ")}</span>
               </div>
