@@ -28,6 +28,8 @@ const Index = () => {
         return a.title.localeCompare(b.title);
       } else if (value === "rating") {
         return b.vote_average - a.vote_average;
+      } else if (value === "popularity") {
+        return b.popularity - a.popularity;
       }
       return 0;
     });
@@ -54,6 +56,7 @@ const Index = () => {
             <SelectContent>
               <SelectItem value="title">Title</SelectItem>
               <SelectItem value="rating">Rating</SelectItem>
+              <SelectItem value="popularity">Popularity</SelectItem>
             </SelectContent>
           </Select>
           <Select onValueChange={handleGenreChange}>
