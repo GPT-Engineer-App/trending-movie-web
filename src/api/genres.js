@@ -12,7 +12,7 @@ export const fetchGenres = async () => {
   try {
     const response = await fetch(`${BASE_URL}/genre/movie/list`, options);
     if (!response.ok) {
-      throw new Error('Failed to fetch genres');
+      throw new Error(`Failed to fetch genres. Status: ${response.status} ${response.statusText}. Please check your API key or network connection.`);
     }
     const data = await response.json();
     return data.genres;
