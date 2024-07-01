@@ -8,9 +8,9 @@ const options = {
   }
 };
 
-export const fetchTrendingMovies = async () => {
+export const fetchTrendingMovies = async (page = 1) => {
   try {
-    const response = await fetch(`${BASE_URL}/trending/movie/week`, options);
+    const response = await fetch(`${BASE_URL}/trending/movie/week?page=${page}`, options);
     if (!response.ok) {
       throw new Error('Failed to fetch trending movies');
     }
