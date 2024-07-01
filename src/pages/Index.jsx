@@ -8,7 +8,7 @@ import { fetchTrendingMovies } from "@/api/movies";
 import { fetchGenres } from "@/api/genres"; // Assuming there's an API to fetch genres
 import { motion } from "framer-motion";
 
-const Rating = lazy(() => import('./Rating'));
+const Rating = lazy(() => import('../components/Rating'));
 
 const Index = () => {
   const [movies, setMovies] = useState([]);
