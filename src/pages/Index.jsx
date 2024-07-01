@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import { fetchTrendingMovies } from "@/api/movies";
 import { fetchGenres } from "@/api/genres"; // Assuming there's an API to fetch genres
 
@@ -10,16 +11,17 @@ const Index = () => {
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState("");
   const [sortOption, setSortOption] = useState("title");
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetchTrendingMovies()
-      .then((data) => setMovies(data))
+    fetchTrendingMovies(page)
+      .then((data) => setMovies((prevMovies) => [...prevMovies, ...data]))
       .catch((error) => console.error("Error fetching trending movies:", error));
 
     fetchGenres()
       .then((data) => setGenres(data))
       .catch((error) => console.error("Error fetching genres:", error));
-  }, []);
+  }, [page]);
 
   const handleSortChange = (value) => {
     setSortOption(value);
@@ -43,6 +45,10 @@ const Index = () => {
   const filteredMovies = selectedGenre
     ? movies.filter((movie) => movie.genre_ids.includes(parseInt(selectedGenre)))
     : movies;
+
+  const loadMoreMovies = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
 
   return (
     <div className="h-screen w-screen flex items-center justify-center">
@@ -91,6 +97,9 @@ const Index = () => {
             ))}
           </div>
         </ScrollArea>
+        <div className="flex justify-center mt-4">
+          <Button onClick={loadMoreMovies}>Load More</Button>
+        </div>
       </div>
     </div>
   );
